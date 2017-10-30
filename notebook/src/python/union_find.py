@@ -6,9 +6,8 @@ class DisjointSet(object):
 
     def find(self, x):
         if self.forest[x] != x:
-            self.forest[x] = self.find(self.forest[x]) # path compression
+            self.forest[x] = self.find(self.forest[x])  # path compression
         return self.forest[x]
-
 
     def union(self, x, y):
         """
@@ -17,10 +16,11 @@ class DisjointSet(object):
         :return: True on success (merged two sets),
                  False otherwise (already in one set)
         """
-        if self.find(x) == self.find(y):
+        setX, setY = self.find(x), self.find(y)
+        if setX == setY:
             return False
         else:
-            self.forest[self.find(x)] = self.find(y)
+            self.forest[setY] = setX
             return True
 
 
@@ -28,9 +28,9 @@ if __name__ == '__main__':
     ds = DisjointSet(10)
     print(ds.find(1))
     print(ds.find(2))
-    ds.union(1,2)
+    ds.union(1, 2)
     print(ds.find(1))
     print(ds.find(2))
-    ds.union(3,4)
+    ds.union(3, 4)
     print(ds.find(3))
     print(ds.find(4))
