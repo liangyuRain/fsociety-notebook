@@ -38,5 +38,6 @@ def KMP_match(s, substr, table):
 if __name__ == '__main__':
     substr = 'abc'
     table = KMP_table(substr)
+    print(table)
     print(KMP_match('ababababababababababc', substr, table))
     print(KMP_match('ababababababababababa', substr, table))

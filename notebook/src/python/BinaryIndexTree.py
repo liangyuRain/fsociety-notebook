@@ -93,6 +93,7 @@ class FenwickTree:
 if __name__ == '__main__':
     tree = FenwickTree(range(100000))
     # tree = FenwickTree(100000)
+    print(tree.threshold)
     print(tree.rangeSum(10, 5000))
     n = tree[500] = 500 + 1000
     print(n)
