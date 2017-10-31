@@ -23,10 +23,6 @@ class FenwickTree:
                     index += index & (-index)
         self.threshold = len(self.arr).bit_length() + 1  # slightly over estimate the steps needed to compute a sum
 
-    def update(self, index, value):
-        self[index] = value
-        return value
-
     def getSum(self, end):
         """
         :param end: end of the range inclusive
