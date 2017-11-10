@@ -31,10 +31,11 @@ public class Problem_G {
             maxValues.add(0);
         }
         gems.sort(new compareY());
+
         for (int i = 0; i < n; i++) {
             int max = 1;
             for (int j = 0; j < i; j++) {
-                if ((gems.get(i).x - gems.get(j).x) <= (gems.get(i).y - gems.get(j).y) * r) {
+                if ((Math.abs(gems.get(i).x - gems.get(j).x) * r) <= Math.abs(gems.get(i).y - gems.get(j).y)) {
                     if (maxValues.get(j) + 1 > max) {
                         max = maxValues.get(j) + 1;
                     }
