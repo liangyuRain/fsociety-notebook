@@ -43,20 +43,18 @@ public class Problem_G {
 
         for (int i = 0; i < n; i++) {
             long max = 1;
-            TreeSet<Integer> task = new TreeSet<Integer>();
-            for (int j = 0; j < i; j++) {
-                task.add(j);
-            }
-            while (!task.isEmpty()) {
-                int j = task.first();
-                if ((Math.abs(gems.get(i).x - gems.get(j).x) * r) <= Math.abs(gems.get(i).y - gems.get(j).y)) {
-                    if (maxValues.get(j) + 1 > max) {
-                        max = maxValues.get(j) + 1;
+            HashSet<Integer> done = new HashSet<>();
+            for (int j = i - 1; j >= 0; j--) {
+                if (!done.contains(j)) {
+                    if ((Math.abs(gems.get(i).x - gems.get(j).x) * r) <= Math.abs(gems.get(i).y - gems.get(j).y)) {
+                        if (maxValues.get(j) + 1 > max) {
+                            max = maxValues.get(j) + 1;
+                        }
+                        done.addAll(visited.get(j));
+                        visited.get(i).addAll(done);
+                        visited.get(i).add(j);
                     }
-                    task.removeAll(visited.get(j));
-                    visited.get(i).addAll(visited.get(j));
                 }
-                task.remove(j);
             }
             maxValues.set(i, max);
         }
