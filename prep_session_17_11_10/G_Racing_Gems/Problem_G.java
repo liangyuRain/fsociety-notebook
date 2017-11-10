@@ -1,3 +1,4 @@
+import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 
 public class Problem_G {
@@ -30,24 +31,37 @@ public class Problem_G {
         long r = scanner.nextLong();
         long w = scanner.nextLong();
         long h = scanner.nextLong();
-        List<Gem> gems = new ArrayList<Gem>();
-        List<Long> maxValues = new ArrayList<Long>();
-        for (long t = 0; t < n; t++) {
+        List<Gem> gems = new LinkedList<Gem>();
+        List<Long> maxValues = new LinkedList<Long>();
+        Map<Integer, Set<Integer>> visited = new HashMap<>();
+        for (int t = 0; t < n; t++) {
             gems.add(new Gem(scanner.nextLong(), scanner.nextLong()));
             maxValues.add((long)0);
+            visited.put(t, new HashSet<Integer>());
         }
         gems.sort(new compareY());
 
         for (int i = 0; i < n; i++) {
             long max = 1;
+            HashSet<Integer> task = new HashSet<Integer>();
             for (int j = 0; j < i; j++) {
+                task.add(j);
+            }
+            while (!task.isEmpty()) {
+                int j = task.iterator().next();
                 if ((Math.abs(gems.get(i).x - gems.get(j).x) * r) <= Math.abs(gems.get(i).y - gems.get(j).y)) {
                     if (maxValues.get(j) + 1 > max) {
                         max = maxValues.get(j) + 1;
                     }
+                    for (int k : visited.get(j)) {
+                        task.remove(k);
+                        visited.get(i).add(k);
+                    }
+                    visited.get(i).add(j);
                 }
+                task.remove(j);
             }
-           maxValues.set(i, max);
+            maxValues.set(i, max);
         }
         long max = maxValues.get(1);
         for (int i = 0; i < n; i++) {
