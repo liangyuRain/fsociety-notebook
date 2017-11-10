@@ -2,10 +2,10 @@ import java.util.*;
 
 public class Problem_G {
     public static class Gem{
-        int x;
-        int y;
+        long x;
+        long y;
 
-        public Gem(int x, int y) {
+        public Gem(long x, long y) {
             this.x = x;
             this.y = y;
         }
@@ -14,26 +14,32 @@ public class Problem_G {
     public static class compareY implements Comparator<Gem>{
         @Override
         public int compare(Gem e1, Gem e2) {
-            return e1.y - e2.y;
+            if (e1.y > e2.y) {
+                return 1;
+            } else if (e1.y == e2.y) {
+                return 0;
+            } else {
+                return -1;
+            }
         }
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int r = scanner.nextInt();
-        int w = scanner.nextInt();
-        int h = scanner.nextInt();
+        long n = scanner.nextLong();
+        long r = scanner.nextLong();
+        long w = scanner.nextLong();
+        long h = scanner.nextLong();
         List<Gem> gems = new ArrayList<Gem>();
-        List<Integer> maxValues = new ArrayList<Integer>();
-        for (int t = 0; t < n; t++) {
-            gems.add(new Gem(scanner.nextInt(), scanner.nextInt()));
-            maxValues.add(0);
+        List<Long> maxValues = new ArrayList<Long>();
+        for (long t = 0; t < n; t++) {
+            gems.add(new Gem(scanner.nextLong(), scanner.nextLong()));
+            maxValues.add((long)0);
         }
         gems.sort(new compareY());
 
         for (int i = 0; i < n; i++) {
-            int max = 1;
+            long max = 1;
             for (int j = 0; j < i; j++) {
                 if ((Math.abs(gems.get(i).x - gems.get(j).x) * r) <= Math.abs(gems.get(i).y - gems.get(j).y)) {
                     if (maxValues.get(j) + 1 > max) {
@@ -43,7 +49,7 @@ public class Problem_G {
             }
            maxValues.set(i, max);
         }
-        int max = maxValues.get(1);
+        long max = maxValues.get(1);
         for (int i = 0; i < n; i++) {
             if (maxValues.get(i) > max) {
                 max = maxValues.get(i);
