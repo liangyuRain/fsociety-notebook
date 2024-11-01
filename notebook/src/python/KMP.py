@@ -2,16 +2,17 @@ def KMP_table(substr):
     """
     :param substr: the substring need to be matched in a long string
     :return: the KMP table needed in KMP algorithm
+    substr[0:table[i]] (INCLUSIVE) represents the longest proper prefix that is a suffix of substr[0:i]
     """
     table = [-1 for _ in range(len(substr))]
     for i in range(1, len(substr)):
-        index = table[i - 1]
+        index = table[i - 1]  # substr[0:table[i-1]] represents the longest proper prefix that is a suffix of substr[0:i-1]
         while substr[index + 1] != substr[i]:
             if index == -1:
                 index = -2
                 break
-            index = table[index]
-        table[i] = index + 1
+            index = table[index]  # substr[0:table[index]] is suffix of substr[0:index] which is suffix of substr[0:i-1]
+        table[i] = index + 1  # if substr[table[i-1]+1] == substr[i], then table[i] = table[i-1] + 1
     return table
 
 
@@ -29,7 +30,7 @@ def KMP_match(s, substr, table):
                 index = -1
                 break
             index = table[index - 1] + 1
-        index += 1
+        index += 1  # substr[0:index] (INCLUSIVE) matches s[i-index:i] where s[i] == c
         if index == len(substr):
             return True
     return False
