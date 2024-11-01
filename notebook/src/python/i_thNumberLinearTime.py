@@ -76,7 +76,11 @@ def select_i_th(A, i, l=0, r=None):
                 a += 1
                 A[b], A[a] = A[a], A[b]
                 b += 1
+        # A[l:a+1] are less than pivot
+        # A[a+1:b] are equal to pivot
+        # A[b:r] are greater than pivot
         k1, k2 = a - l + 2, b - l
+        # the k1-th, (k1+1)-th, ..., k2-th numbers are equal to pivot
         if k1 <= i <= k2:
             return pivot
         elif i < k1:
