@@ -28,6 +28,8 @@ class FenwickTree:
         :param end: end of the range inclusive
         :return: sum of arr[0...end] inclusive
         """
+        # self.fenArr[end] == sum(self.arr[begin:end+1]) where begin == end-lsb(end)+1 and lsb(end) == end & (-end)
+        # Fenwick array starts from index 1
         if end <= self.threshold:  # if the range is small, directly use built-in sum
             return sum(self.arr[:end + 1])
         else:
